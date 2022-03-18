@@ -9,6 +9,16 @@ def all_members():
     members = member_repository.select_all()
     return render_template('/members/index.html', title="Members", members=members)
 
+@members_blueprint.route('/members/new')
+def new_member():
+    return render_template('/members/new_member.html', title="New Member")
+
+@members_blueprint.route('/members', methods=['POST'])
+def add_new_member():
+    member = Member(request.form['name'], request.form['age'])
+    member_repository.save(member)
+    return redirect('/members')
+
 @members_blueprint.route('/members/<id>')
 def single_member(id):
     member = member_repository.select(id)
