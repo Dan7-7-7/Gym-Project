@@ -1,4 +1,4 @@
-class Class:
+class Session:
     def __init__(self, name, start_time, duration, capacity, id = None):
         self.name = name
         self.start_time = start_time

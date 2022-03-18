@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS bookings;
-DROP TABLE IF EXISTS classes;
+DROP TABLE IF EXISTS sessions;
 DROP TABLE IF EXISTS members;
 
 CREATE TABLE members (
@@ -8,7 +8,7 @@ CREATE TABLE members (
     age INT
 );
 
-CREATE TABLE classes (
+CREATE TABLE sessions (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
     start_time INT,
@@ -19,5 +19,5 @@ CREATE TABLE classes (
 CREATE TABLE bookings (
     id SERIAL PRIMARY KEY,
     member_id INT REFERENCES members(id) ON DELETE CASCADE,
-    class_id INT REFERENCES classes(id) ON DELETE CASCADE
+    session_id INT REFERENCES sessions(id) ON DELETE CASCADE
 );
