@@ -1,5 +1,6 @@
 from db.run_sql import run_sql
 from models.session import Session
+from models.member import Member
 
 def save(session):
     sql = "INSERT INTO sessions (name, start_time, duration, capacity) VALUES (%s, %s, %s, %s) RETURNING *"
@@ -30,3 +31,13 @@ def update(session):
     sql = "UPDATE sessions SET (name, start_time, duration, capacity) = (%s, %s, %s, %s) WHERE id = %s"
     values = [session.name, session.start_time, session.duration, session.capacity, session.id]
     run_sql(sql, values)
+
+def members(session):
+    members = []
+    sql = "SELECT members.* FROM members INNER JOIN bookings ON members.id = bookings.member_id WHERE session_id = %s"
+    values = [session.id]
+    results = run_sql(sql, values)
+    for row in results:
+        member = Member(row['name'], row['age'], row['id'])
+        members.append(member)
+    return members
