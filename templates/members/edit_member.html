@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form action="/members/{{member.id}}" method="POST">
+    <label for="name">Name: </label>
+    <input type="text" id="name" name="name" value="{{member.name}}">
+    <label for="age">Age: </label>
+    <input type="number" id="age" name="age" value="{{member.age}}">
+    <button type="submit">Update</button>
+</form>
+
+{% endblock %}

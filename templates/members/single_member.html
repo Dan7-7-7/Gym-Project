@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+
+<p><b>Name</b>: {{member.name}}</b></p>
+<p><b>Age</b>: {{member.age}}</b></p>
+<p><a href="/members/{{member.id}}/edit">Edit Member Details</a></p>
+
+{% endblock %}
