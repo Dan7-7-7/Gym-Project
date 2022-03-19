@@ -22,7 +22,7 @@ def add_new_member():
 @members_blueprint.route('/members/<id>')
 def single_member(id):
     member = member_repository.select(id)
-    return render_template('/members/single_member.html', title="Member", member=member)
+    return render_template('/members/single_member.html', title="Member Details", member=member)
 
 @members_blueprint.route('/members/<id>/edit')
 def edit_member(id):

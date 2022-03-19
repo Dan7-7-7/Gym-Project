@@ -9,19 +9,37 @@ def show_classes():
     sessions = session_repository.select_all()
     return render_template('/sessions/index.html', title="Classes", sessions=sessions)
 
-# @sessions_blueprint.route('/classes/new')
+@sessions_blueprint.route('/classes/new')
+def new_session():
+    return render_template('/sessions/new_session.html', title="New Class")
+
+@sessions_blueprint.route('/classes', methods=['POST'])
+def create_session():
+    session = Session(request.form['name'], request.form['start_time'], request.form['duration'], request.form['capacity'])
+    session_repository.save(session)
+    return redirect('/classes')
 
 
-# @sessions_blueprint.route('/classes', methods=['POST'])
+@sessions_blueprint.route('/classes/<id>')
+def single_session(id):
+    session = session_repository.select(id)
+    return render_template('/sessions/single_session.html', title="Class Details", session=session)
 
 
-# @sessions_blueprint.route('/classes/<id>')
+@sessions_blueprint.route('/classes/<id>/edit')
+def edit_session(id):
+    session = session_repository.select(id)
+    return render_template('/sessions/edit_session.html', title="Edit Session Details", session=session)
 
 
-# @sessions_blueprint.route('/classes/<id>/edit')
-
-
-# @sessions_blueprint.route('/classes/<id>', methods=['POST'])
-
+@sessions_blueprint.route('/classes/<id>', methods=['POST'])
+def update_session(id):
+    session = Session(request.form['name'], request.form['start_time'], request.form['duration'], request.form['capacity'], id)
+    session_repository.update(session)
+    return redirect(f'/classes/{id}')
 
 # @sessions_blueprint.route('/classes/<id>/members')
+
+
+# @sessions_blueprint.route('classes/<id>/bookings')
+# in this page, new booking directs to a /booking page in booking controller

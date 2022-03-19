@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h4><a href="/sessions/new">New Session</a></h4>
+<h4><a href="/classes/new">New Session</a></h4>
 {% for session in sessions %}
     <div class="box">
         <p><b>Name</b>: {{session.name}}</b></p>
@@ -9,8 +9,8 @@
         <p><b>Duration</b>: {{session.duration}} minutes</b></p>
         <p><b>Capacity</b>: {{session.capacity}}</b></p>
         <!-- <p><b>Current Bookings</b>: {{num_of_bookings}}</b></p> -->
-        <p><a href="/sessions/{{session.id}}/bookings">Bookings</a></p>
-        <p><a href="/sessions/{{session.id}}">View/Edit Session Details</a></p>
+        <p><a href="/classes/{{session.id}}/bookings">Bookings</a></p>
+        <p><a href="/classes/{{session.id}}">View/Edit Session Details</a></p>
     </div>
 {% endfor %}
 

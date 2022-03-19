@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+
+<p><b>Name</b>: {{session.name}}</b></p>
+<p><b>Start Time</b>: {{session.start_time}}</b></p>
+<p><b>Duration</b>: {{session.duration}} minutes</b></p>
+<p><b>Capacity</b>: {{session.capacity}}</b></p>
+<p><a href="/classes/{{session.id}}/edit">Edit Session Details</a></p>
+
+{% endblock %}
