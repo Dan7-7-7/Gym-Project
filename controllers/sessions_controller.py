@@ -19,18 +19,15 @@ def create_session():
     session_repository.save(session)
     return redirect('/classes')
 
-
 @sessions_blueprint.route('/classes/<id>')
 def single_session(id):
     session = session_repository.select(id)
     return render_template('/sessions/single_session.html', title="Class Details", session=session)
 
-
 @sessions_blueprint.route('/classes/<id>/edit')
 def edit_session(id):
     session = session_repository.select(id)
     return render_template('/sessions/edit_session.html', title="Edit Session Details", session=session)
-
 
 @sessions_blueprint.route('/classes/<id>', methods=['POST'])
 def update_session(id):
@@ -38,7 +35,13 @@ def update_session(id):
     session_repository.update(session)
     return redirect(f'/classes/{id}')
 
-# @sessions_blueprint.route('/classes/<id>/members')
+@sessions_blueprint.route('/classes/<id>/bookings')
+def session_bookings(id):
+    session = session_repository.select(id)
+    num_bookings = len(session_repository.members(session))
+    spaces = session.capacity - num_bookings
+    members = session_repository.members(session)
+    return render_template('/sessions/members_booked.html', title=f"{session} Bookings", session=session, bookings=num_bookings, spaces=spaces, members=members)
 
 
 # @sessions_blueprint.route('classes/<id>/bookings')

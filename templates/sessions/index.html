@@ -1,15 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h4><a href="/classes/new">New Session</a></h4>
+<h4><a href="/classes/new">New Class</a></h4>
+<h4>Upcoming Classes</h4>
 {% for session in sessions %}
     <div class="box">
-        <p><b>Name</b>: {{session.name}}</b></p>
-        <p><b>Start Time</b>: {{session.start_time}}</b></p>
-        <p><b>Duration</b>: {{session.duration}} minutes</b></p>
-        <p><b>Capacity</b>: {{session.capacity}}</b></p>
-        <!-- <p><b>Current Bookings</b>: {{num_of_bookings}}</b></p> -->
-        <p><a href="/classes/{{session.id}}/bookings">Bookings</a></p>
+        <p><b>{{session.name}}</b></p>
+        <p>{{session.start_time}}</p>
+        <p>{{session.duration}} minutes</p>
+        <p><a href="/classes/{{session.id}}/bookings">View Bookings</a></p>
         <p><a href="/classes/{{session.id}}">View/Edit Session Details</a></p>
     </div>
 {% endfor %}
