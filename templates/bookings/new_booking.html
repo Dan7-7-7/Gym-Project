@@ -1,7 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
 
-<form action="/bookings" method="POST">
+<form action="/bookings/class/new" method="POST">
+    <label for="classes">Class:</label>
+        <select name="session_id" id="classes">
+            {% for session in sessions %}
+                <option value="{{session.id}}">{{session.name}}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Next</button>
+</form>
+
+<!-- <form action="/bookings" method="POST">
     <label for="member">Member Name:</label>
         <select name="member_id" id="member">
             {% for member in members %}
@@ -15,6 +25,6 @@
             {% endfor %}
         </select>
         <button type="submit">Create New Booking</button>
-</form>
+</form> -->
 
 {% endblock %}

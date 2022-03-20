@@ -4,7 +4,6 @@ from repositories import booking_repository, member_repository, session_reposito
 
 bookings_blueprint = Blueprint("bookings", __name__)
 
-# all bookings
 @bookings_blueprint.route('/bookings')
 def all_bookings():
     bookings = booking_repository.select_all()
@@ -12,7 +11,6 @@ def all_bookings():
 
 @bookings_blueprint.route('/bookings/new')
 def new_booking():
-    members = member_repository.select_all()
     sessions = session_repository.select_all()
     full_sessions = []
     for session in sessions:
@@ -20,15 +18,32 @@ def new_booking():
             full_sessions.append(session)
     for session in full_sessions:
         sessions.remove(session)
-    return render_template('/bookings/new_booking.html', title="New Booking", members=members, sessions=sessions)
+    return render_template('/bookings/new_booking.html', title="New Booking", sessions=sessions)
 
-@bookings_blueprint.route('/bookings', methods = ['POST'])
-def add_booking():
-    member = member_repository.select(request.form['member_id'])
+@bookings_blueprint.route('/bookings/class/new', methods = ['POST'])
+def book_member():
     session = session_repository.select(request.form['session_id'])
-    booking = Booking(member, session)
-    booking_repository.save(booking)
-    return redirect('/bookings')
+    members = member_repository.select_all()
+    num_bookings = len(session_repository.members(session))
+    spaces = session.capacity - num_bookings
+
+    booked_members = []
+    session_members = session_repository.members(session)
+    for session_member in session_members:
+        for member in members:
+            if member.id == session_member.id:
+                booked_members.append(member)
+    for member in booked_members:
+        members.remove(member)
+    return render_template('/bookings/new_class_booking.html', spaces=spaces, session=session, members=members)
+
+# @bookings_blueprint.route('/bookings', methods = ['POST'])
+# def add_booking():
+#     member = member_repository.select(request.form['member_id'])
+#     session = session_repository.select(request.form['session_id'])
+#     booking = Booking(member, session)
+#     booking_repository.save(booking)
+#     return redirect('/bookings')
 
 @bookings_blueprint.route('/bookings/<id>/new')
 def add_booking_to_session(id):
@@ -36,7 +51,16 @@ def add_booking_to_session(id):
     members = member_repository.select_all()
     num_bookings = len(session_repository.members(session))
     spaces = session.capacity - num_bookings
-    # it would be nice if the members currently booked were removed from the drop-down menu
+
+    booked_members = []
+    session_members = session_repository.members(session)
+    for session_member in session_members:
+        for member in members:
+            if member.id == session_member.id:
+                booked_members.append(member)
+    for member in booked_members:
+        members.remove(member)
+    
     return render_template('/bookings/new_class_booking.html', title=f"New Booking for {session}", session=session, members=members, spaces=spaces)
 
 @bookings_blueprint.route('/bookings/<id>')
