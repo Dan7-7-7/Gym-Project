@@ -24,4 +24,11 @@ def add_booking():
     booking_repository.save(booking)
     return redirect('/bookings')
 
-# new booking for specific session - pre populated
+@bookings_blueprint.route('/bookings/<id>/new')
+def add_booking_to_class(id):
+    session = session_repository.select(id)
+    members = member_repository.select_all()
+    # it would be nice if the members currently booked were removed from the drop-down menu
+    return render_template('/bookings/new_class_booking.html', title=f"New Booking for {session}", session=session, members=members)
+    
+

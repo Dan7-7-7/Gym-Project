@@ -1,6 +1,7 @@
 from flask import Flask, Blueprint, render_template, request, redirect, session
 from models.session import Session
-from repositories import session_repository
+from models.booking import Booking
+from repositories import session_repository, member_repository, booking_repository
 
 sessions_blueprint = Blueprint("sessions", __name__)
 
@@ -42,4 +43,11 @@ def session_bookings(id):
     spaces = session.capacity - num_bookings
     members = session_repository.members(session)
     return render_template('/sessions/members_booked.html', title=f"{session} Bookings", session=session, bookings=num_bookings, spaces=spaces, members=members)
-    
+
+@sessions_blueprint.route('/classes/<id>/bookings', methods = ['POST'])
+def add_session_booking(id):
+    session = session_repository.select(id)
+    member = member_repository.select(request.form['member_id'])
+    booking = Booking(member, session)
+    booking_repository.save(booking)
+    return redirect(f'/classes/{id}/bookings')
