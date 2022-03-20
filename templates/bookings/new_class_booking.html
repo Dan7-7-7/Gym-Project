@@ -2,7 +2,10 @@
 {% block content %}
 
 <h1>New Booking for {{session.name}}</h1>
+<h3>Starts at: {{session.start_time}}</h3>
 <h3>Spaces remaining: {{spaces}}</h3>
+
+{% if spaces != 0%}
 
 <form action="/classes/{{session.id}}/bookings" method="POST">
     <label for="member">Member Name:</label>
@@ -13,5 +16,7 @@
         </select>
     <button type="submit">Create New Booking</button>
 </form>
+
+{% endif %}
 
 {% endblock %}

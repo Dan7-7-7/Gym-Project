@@ -13,6 +13,8 @@
         <p><b>{{member.name}}</b></p>
 {% endfor %}
 
+{% if spaces != 0 %}
 <p><a href="/bookings/{{session.id}}/new">Add new booking for this class</a></p>
+{% endif %}
 
 {% endblock %}

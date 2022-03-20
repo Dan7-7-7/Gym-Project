@@ -14,6 +14,12 @@ def all_bookings():
 def new_booking():
     members = member_repository.select_all()
     sessions = session_repository.select_all()
+    full_sessions = []
+    for session in sessions:
+        if session.capacity - len(session_repository.members(session)) == 0:
+            full_sessions.append(session)
+    for session in full_sessions:
+        sessions.remove(session)
     return render_template('/bookings/new_booking.html', title="New Booking", members=members, sessions=sessions)
 
 @bookings_blueprint.route('/bookings', methods = ['POST'])
@@ -25,7 +31,7 @@ def add_booking():
     return redirect('/bookings')
 
 @bookings_blueprint.route('/bookings/<id>/new')
-def add_booking_to_class(id):
+def add_booking_to_session(id):
     session = session_repository.select(id)
     members = member_repository.select_all()
     num_bookings = len(session_repository.members(session))
@@ -54,10 +60,12 @@ def update_booking(id):
     return redirect(f'/bookings/{id}')
 
 
+
+
 # BACK-END TO-DO LIST
 # edit bookings DONE!!!!!
-# re-factor so that you choose class first, then directs to class_booking page
-# can't book twice - members greyed out/absent from list if already booked
-# can't exceed capacity
+# re-factor so that you choose class first, then directs to class_booking page NAH
+# can't book twice - members greyed out/absent from list if already booked MAYBE LATER
+# can't exceed capacity DONE!!!!!
 # premium/ standard membership with benefits for premium
 # deactivated members, who don't show up anymore
