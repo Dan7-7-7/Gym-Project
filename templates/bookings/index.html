@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 
+<h4><a href="/bookings/new">New Booking</a></h4>
 
+<h4>Recent Bookings</h4>
+
+    {% for booking in bookings %}
+        <div class="box">
+            <p><b>Class</b>: {{booking.session.name}}</b></p>
+            <p><b>Member Name</b>: {{booking.member.name}}</b></p>
+        </div>
+    {% endfor %}
 
 {% endblock %}

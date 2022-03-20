@@ -42,7 +42,4 @@ def session_bookings(id):
     spaces = session.capacity - num_bookings
     members = session_repository.members(session)
     return render_template('/sessions/members_booked.html', title=f"{session} Bookings", session=session, bookings=num_bookings, spaces=spaces, members=members)
-
-
-# @sessions_blueprint.route('classes/<id>/bookings')
-# in this page, new booking directs to a /booking page in booking controller
+    
