@@ -28,7 +28,36 @@ def add_booking():
 def add_booking_to_class(id):
     session = session_repository.select(id)
     members = member_repository.select_all()
+    num_bookings = len(session_repository.members(session))
+    spaces = session.capacity - num_bookings
     # it would be nice if the members currently booked were removed from the drop-down menu
-    return render_template('/bookings/new_class_booking.html', title=f"New Booking for {session}", session=session, members=members)
-    
+    return render_template('/bookings/new_class_booking.html', title=f"New Booking for {session}", session=session, members=members, spaces=spaces)
 
+@bookings_blueprint.route('/bookings/<id>')
+def booking_details(id):
+    booking = booking_repository.select(id)
+    return render_template('/bookings/booking_details.html', title="Booking Details", booking=booking)
+  
+@bookings_blueprint.route('/bookings/<id>/edit')
+def edit_booking(id):
+    booking = booking_repository.select(id)
+    sessions = session_repository.select_all()
+    members = member_repository.select_all()
+    return render_template('/bookings/edit_booking.html', title="Edit Booking", booking=booking, sessions=sessions, members=members)
+
+@bookings_blueprint.route('/bookings/<id>', methods = ['POST'])
+def update_booking(id):
+    member = member_repository.select(request.form['member_id'])
+    session = session_repository.select(request.form['session_id'])
+    booking = Booking(member, session, id)
+    booking_repository.update(booking)
+    return redirect(f'/bookings/{id}')
+
+
+# BACK-END TO-DO LIST
+# edit bookings DONE!!!!!
+# re-factor so that you choose class first, then directs to class_booking page
+# can't book twice - members greyed out/absent from list if already booked
+# can't exceed capacity
+# premium/ standard membership with benefits for premium
+# deactivated members, who don't show up anymore

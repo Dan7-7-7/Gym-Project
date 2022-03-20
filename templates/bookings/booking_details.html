@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+
+<p><b>Class</b>: {{booking.session.name}}</b></p>
+<p><b>Member Name</b>: {{booking.member.name}}</b></p>
+<p><a href="/bookings/{{booking.id}}/edit">Edit Booking</a></p>
+
+{% endblock %}
