@@ -14,7 +14,7 @@ def new_booking():
     sessions = session_repository.select_all()
     full_sessions = []
     for session in sessions:
-        if session.capacity - len(session_repository.members(session)) == 0:
+        if session.capacity - len(session_repository.all_booked_members(session)) == 0:
             full_sessions.append(session)
     for session in full_sessions:
         sessions.remove(session)
@@ -23,22 +23,16 @@ def new_booking():
 @bookings_blueprint.route('/bookings/class/new', methods = ['POST'])
 def book_member():
     session = session_repository.select(request.form['session_id'])
-    members = member_repository.select_all()
-    num_bookings = len(session_repository.members(session))
+    num_bookings = len(session_repository.all_booked_members(session))
     spaces = session.capacity - num_bookings
-
-    booked_members = []
-    session_members = session_repository.members(session)
-    for session_member in session_members:
-        for member in members:
-            if member.id == session_member.id:
-                booked_members.append(member)
-    for member in booked_members:
-        members.remove(member)
-    return render_template('/bookings/new_class_booking.html', spaces=spaces, session=session, members=members)
+    if session.start_time > 1700 and session.start_time < 1900:
+        members = session_repository.premium_unbooked_members(session)
+    else:
+        members = session_repository.all_unbooked_members(session)
+    return render_template('/bookings/new_class_booking.html', title=f"New Booking for {session}", spaces=spaces, session=session, members=members)
 
 # @bookings_blueprint.route('/bookings', methods = ['POST'])
-# def add_booking():
+# def add_booking(): 
 #     member = member_repository.select(request.form['member_id'])
 #     session = session_repository.select(request.form['session_id'])
 #     booking = Booking(member, session)
@@ -48,19 +42,12 @@ def book_member():
 @bookings_blueprint.route('/bookings/<id>/new')
 def add_booking_to_session(id):
     session = session_repository.select(id)
-    members = member_repository.select_all()
-    num_bookings = len(session_repository.members(session))
+    num_bookings = len(session_repository.all_booked_members(session))
     spaces = session.capacity - num_bookings
-
-    booked_members = []
-    session_members = session_repository.members(session)
-    for session_member in session_members:
-        for member in members:
-            if member.id == session_member.id:
-                booked_members.append(member)
-    for member in booked_members:
-        members.remove(member)
-    
+    if session.start_time > 1700 and session.start_time < 1900:
+        members = session_repository.premium_unbooked_members(session)
+    else:
+        members = session_repository.all_unbooked_members(session)
     return render_template('/bookings/new_class_booking.html', title=f"New Booking for {session}", session=session, members=members, spaces=spaces)
 
 @bookings_blueprint.route('/bookings/<id>')

@@ -42,9 +42,9 @@ def update_session(id):
 @sessions_blueprint.route('/classes/<id>/bookings')
 def session_bookings(id):
     session = session_repository.select(id)
-    num_bookings = len(session_repository.members(session))
+    num_bookings = len(session_repository.all_booked_members(session))
     spaces = session.capacity - num_bookings
-    members = session_repository.members(session)
+    members = session_repository.all_booked_members(session)
     return render_template('/sessions/members_booked.html', title=f"{session} Bookings", session=session, bookings=num_bookings, spaces=spaces, members=members)
 
 @sessions_blueprint.route('/classes/<id>/bookings', methods = ['POST'])
