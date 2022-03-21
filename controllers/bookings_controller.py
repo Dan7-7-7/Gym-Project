@@ -25,14 +25,6 @@ def book_member():
         members = session_repository.all_unbooked_members(session)
     return render_template('/bookings/new_class_booking.html', title=f"New Booking for {session}", spaces=spaces, session=session, members=members)
 
-# @bookings_blueprint.route('/bookings', methods = ['POST'])
-# def add_booking(): 
-#     member = member_repository.select(request.form['member_id'])
-#     session = session_repository.select(request.form['session_id'])
-#     booking = Booking(member, session)
-#     booking_repository.save(booking)
-#     return redirect('/bookings')
-
 @bookings_blueprint.route('/bookings/<id>/new')
 def add_booking_to_session(id):
     session = session_repository.select(id)
@@ -75,9 +67,6 @@ def update_booking(id):
 # homepage total bookings and classes DONE!!!!
 # classes appear in chronological order (make it datetime?) DONE!!!!
 # premium/ standard membership with benefits for premium DONE!!!
-# deactivated members, who don't show up anymore
-    # NEXT STEP: make deactivated members disappear from all lists
-    # will have to edit and/or add functions in member and session repos (the selectall functions?)
-    # then use them in controllers
-# re-factor with a sessions_repo function which returns all sessions with availability
-# search function for bookings list?!? (and classes)
+# deactivated members, who don't show up anymore DONE!!!!
+# re-factor with a sessions_repo function which returns all sessions with availability DONE!!!!
+# search function for bookings list?!? (and classes) NOT LIKELY MATE
