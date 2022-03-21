@@ -5,7 +5,8 @@ DROP TABLE IF EXISTS members;
 CREATE TABLE members (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
-    age INT
+    age INT,
+    premium BOOL
 );
 
 CREATE TABLE sessions (

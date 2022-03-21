@@ -95,3 +95,4 @@ def update_booking(id):
 # classes appear in chronological order (make it datetime?) DONE!!!!
 # premium/ standard membership with benefits for premium
 # deactivated members, who don't show up anymore
+# search function for bookings list?!? (and classes)

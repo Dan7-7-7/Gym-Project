@@ -38,6 +38,6 @@ def members(session):
     values = [session.id]
     results = run_sql(sql, values)
     for row in results:
-        member = Member(row['name'], row['age'], row['id'])
+        member = Member(row['name'], row['age'], row['premium'], row['id'])
         members.append(member)
     return members

@@ -3,8 +3,8 @@ from models.member import Member
 from models.session import Session
 
 def save(member):
-    sql = "INSERT INTO members (name, age) VALUES (%s, %s) RETURNING *"
-    values = [member.name, member.age]
+    sql = "INSERT INTO members (name, age, premium) VALUES (%s, %s, %s) RETURNING *"
+    values = [member.name, member.age, member.premium]
     result = run_sql(sql, values)[0]
     member.id = result['id']
     return member
@@ -15,7 +15,7 @@ def select(id):
     values = [id]
     result = run_sql(sql, values)[0]
     if result is not None:
-        member = Member(result['name'], result['age'], result['id'])
+        member = Member(result['name'], result['age'], result['premium'], result['id'])
     return member
 
 def select_all():
@@ -23,13 +23,13 @@ def select_all():
     sql = "SELECT * FROM members"
     results = run_sql(sql)
     for row in results:
-        member = Member(row['name'], row['age'], row['id'])
+        member = Member(row['name'], row['age'], row['premium'], row['id'])
         members.append(member)
     return members
 
 def update(member):
-    sql = "UPDATE members SET (name, age) = (%s, %s) WHERE id = %s"
-    values = [member.name, member.age, member.id]
+    sql = "UPDATE members SET (name, age, premium) = (%s, %s, %s) WHERE id = %s"
+    values = [member.name, member.age, member.premium, member.id]
     run_sql(sql, values)
 
 def sessions(member):

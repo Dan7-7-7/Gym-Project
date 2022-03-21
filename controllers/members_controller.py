@@ -15,7 +15,7 @@ def new_member():
 
 @members_blueprint.route('/members', methods=['POST'])
 def add_new_member():
-    member = Member(request.form['name'], request.form['age'])
+    member = Member(request.form['name'], request.form['age'], request.form['premium'])
     member_repository.save(member)
     return redirect('/members')
 
@@ -27,10 +27,14 @@ def single_member(id):
 @members_blueprint.route('/members/<id>/edit')
 def edit_member(id):
     member = member_repository.select(id)
-    return render_template('/members/edit_member.html', title="Edit Member Details", member=member)
+    checked = ""
+    if member.premium == True:
+        checked = "checked"
+    return render_template('/members/edit_member.html', title="Edit Member Details", member=member, checked=checked)
 
 @members_blueprint.route('/members/<id>', methods=['POST'])
 def update_member(id):
-    member = Member(request.form['name'], request.form['age'], id)
+    membership = True if "premium" in request.form else False
+    member = Member(request.form['name'], request.form['age'], membership, id)
     member_repository.update(member)
     return redirect(f'/members/{id}')

@@ -3,6 +3,9 @@
 
 <p><b>Name</b>: {{member.name}}</b></p>
 <p><b>Age</b>: {{member.age}}</b></p>
+{% if member.premium == True %}
+    <p><b>Premium Member</b></p>
+{% endif %}
 <p><a href="/members/{{member.id}}/edit">Edit Member Details</a></p>
 
 {% endblock %}
