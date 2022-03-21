@@ -8,6 +8,9 @@
         <p><b>{{session.name}}</b></p>
         <p>{{session.start_time}}</p>
         <p>{{session.duration}} minutes</p>
+        {% if session.activated == False %}
+            <p><b>DEACTIVATED</b></p>
+        {% endif %}
         <p><a href="/classes/{{session.id}}/bookings">View Bookings</a></p>
         <p><a href="/classes/{{session.id}}">View/Edit Class Details</a></p>
     </div>

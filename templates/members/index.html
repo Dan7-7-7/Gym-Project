@@ -10,6 +10,9 @@
         {% if member.premium == True %}
             <p><b>Premium Member</b></p>
         {% endif %}
+        {% if member.activated == False %}
+            <p><b>DEACTIVATED</b></p>
+        {% endif %}
         <p><a href="/members/{{member.id}}">View/Edit Member Details</a></p>
     </div>
 {% endfor %}

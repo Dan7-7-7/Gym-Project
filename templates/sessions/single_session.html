@@ -6,5 +6,11 @@
 <p><b>Duration</b>: {{session.duration}} minutes</b></p>
 <p><b>Capacity</b>: {{session.capacity}}</b></p>
 <p><a href="/classes/{{session.id}}/edit">Edit Session Details</a></p>
-<p><a href="/classes/{{session.id}}/deactivate">Deactivate</a></p>
+{% if session.activated == True %}
+    <p><a href="/classes/{{session.id}}/deactivate">Deactivate</a></p>
+{% endif %}
+{% if session.activated == False %}
+    <p><b>DEACTIVATED</b></p>
+    <p><a href="/classes/{{session.id}}/reactivate">Reactivate</a></p>
+{% endif %}
 {% endblock %}

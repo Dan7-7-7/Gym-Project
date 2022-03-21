@@ -7,6 +7,12 @@
     <p><b>Premium Member</b></p>
 {% endif %}
 <p><a href="/members/{{member.id}}/edit">Edit Member Details</a></p>
-<p><a href="/members/{{member.id}}/deactivate">Deactivate</a></p>
+{% if member.activated == True %}
+    <p><a href="/members/{{member.id}}/deactivate">Deactivate</a></p>
+{% endif %}
+{% if member.activated == False %}
+    <p><b>DEACTIVATED</b></p>
+    <p><a href="/members/{{member.id}}/reactivate">Reactivate</a></p>
+{% endif %}
 
 {% endblock %}
