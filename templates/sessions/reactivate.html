@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+
+<p>{{session.name}} has been activated.</p>
+<br>
+<a href="/classes/{{session.id}}">Back to class details</a>
+
+{% endblock %}

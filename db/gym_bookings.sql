@@ -6,7 +6,8 @@ CREATE TABLE members (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
     age INT,
-    premium BOOL
+    premium BOOL,
+    activated BOOL
 );
 
 CREATE TABLE sessions (
@@ -14,7 +15,8 @@ CREATE TABLE sessions (
     name VARCHAR(255),
     start_time INT,
     duration INT,
-    capacity INT
+    capacity INT,
+    activated BOOL
 );
 
 CREATE TABLE bookings (

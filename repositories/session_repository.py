@@ -4,8 +4,8 @@ from models.member import Member
 from repositories import member_repository
 
 def save(session):
-    sql = "INSERT INTO sessions (name, start_time, duration, capacity) VALUES (%s, %s, %s, %s) RETURNING *"
-    values = [session.name, session.start_time, session.duration, session.capacity]
+    sql = "INSERT INTO sessions (name, start_time, duration, capacity, activated) VALUES (%s, %s, %s, %s, %s) RETURNING *"
+    values = [session.name, session.start_time, session.duration, session.capacity, session.activated]
     result = run_sql(sql, values)[0]
     session.id = result['id']
     return session
@@ -16,7 +16,7 @@ def select(id):
     values = [id]
     result = run_sql(sql, values)[0]
     if result is not None:
-        session = Session(result['name'], result['start_time'], result['duration'], result['capacity'], result['id'])
+        session = Session(result['name'], result['start_time'], result['duration'], result['capacity'], result['activated'], result['id'])
     return session
 
 def select_all():
@@ -24,13 +24,13 @@ def select_all():
     sql = "SELECT * FROM sessions"
     results = run_sql(sql)
     for row in results:
-        session = Session(row['name'], row['start_time'], row['duration'], row['capacity'], row['id'])
+        session = Session(row['name'], row['start_time'], row['duration'], row['capacity'], row['activated'], row['id'])
         sessions.append(session)
     return sessions
 
 def update(session):
-    sql = "UPDATE sessions SET (name, start_time, duration, capacity) = (%s, %s, %s, %s) WHERE id = %s"
-    values = [session.name, session.start_time, session.duration, session.capacity, session.id]
+    sql = "UPDATE sessions SET (name, start_time, duration, capacity, activated) = (%s, %s, %s, %s, %s) WHERE id = %s"
+    values = [session.name, session.start_time, session.duration, session.capacity, session.activated, session.id]
     run_sql(sql, values)
 
 def all_booked_members(session):
@@ -39,7 +39,7 @@ def all_booked_members(session):
     values = [session.id]
     results = run_sql(sql, values)
     for row in results:
-        member = Member(row['name'], row['age'], row['premium'], row['id'])
+        member = Member(row['name'], row['age'], row['premium'], row['activated'], row['id'])
         members.append(member)
     return members
 
@@ -66,3 +66,12 @@ def premium_unbooked_members(session):
     return members
 
 # def select_all_available_sessions():
+
+
+def deactivate(session):
+    session.activated = False
+    update(session)
+
+def reactivate(session):
+    session.activated = True
+    update(session)

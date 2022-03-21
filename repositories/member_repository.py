@@ -3,8 +3,8 @@ from models.member import Member
 from models.session import Session
 
 def save(member):
-    sql = "INSERT INTO members (name, age, premium) VALUES (%s, %s, %s) RETURNING *"
-    values = [member.name, member.age, member.premium]
+    sql = "INSERT INTO members (name, age, premium, activated) VALUES (%s, %s, %s, %s) RETURNING *"
+    values = [member.name, member.age, member.premium, member.activated]
     result = run_sql(sql, values)[0]
     member.id = result['id']
     return member
@@ -15,7 +15,7 @@ def select(id):
     values = [id]
     result = run_sql(sql, values)[0]
     if result is not None:
-        member = Member(result['name'], result['age'], result['premium'], result['id'])
+        member = Member(result['name'], result['age'], result['premium'], result['activated'], result['id'])
     return member
 
 def select_all():
@@ -23,13 +23,13 @@ def select_all():
     sql = "SELECT * FROM members"
     results = run_sql(sql)
     for row in results:
-        member = Member(row['name'], row['age'], row['premium'], row['id'])
+        member = Member(row['name'], row['age'], row['premium'], row['activated'], row['id'])
         members.append(member)
     return members
 
 def update(member):
-    sql = "UPDATE members SET (name, age, premium) = (%s, %s, %s) WHERE id = %s"
-    values = [member.name, member.age, member.premium, member.id]
+    sql = "UPDATE members SET (name, age, premium, activated) = (%s, %s, %s, %s) WHERE id = %s"
+    values = [member.name, member.age, member.premium, member.activated, member.id]
     run_sql(sql, values)
 
 def sessions(member):
@@ -38,6 +38,14 @@ def sessions(member):
     values = [member.id]
     results = run_sql(sql, values)
     for row in results:
-        session = Session(row['name'], row['start_time'], row['duration'], row['capacity'], row['id'])
+        session = Session(row['name'], row['start_time'], row['duration'], row['capacity'], row['activated'], row['id'])
         sessions.append(session)
     return sessions
+
+def deactivate(member):
+    member.activated = False
+    update(member)
+
+def reactivate(member):
+    member.activated = True
+    update(member)

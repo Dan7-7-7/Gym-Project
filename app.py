@@ -17,7 +17,7 @@ def home():
     num_classes = len(all_sessions)
     num_members = 0
     for session in all_sessions:
-        num_members += len(session_repository.members(session))
+        num_members += len(session_repository.all_booked_members(session))
     return render_template('index.html', title="Homepage", num_classes=num_classes, num_members=num_members)
 
 if __name__ == '__main__':

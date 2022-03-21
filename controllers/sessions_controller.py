@@ -35,7 +35,7 @@ def edit_session(id):
 
 @sessions_blueprint.route('/classes/<id>', methods=['POST'])
 def update_session(id):
-    session = Session(request.form['name'], request.form['start_time'], request.form['duration'], request.form['capacity'], id)
+    session = Session(request.form['name'], request.form['start_time'], request.form['duration'], request.form['capacity'], True, id)
     session_repository.update(session)
     return redirect(f'/classes/{id}')
 
@@ -54,3 +54,15 @@ def add_session_booking(id):
     booking = Booking(member, session)
     booking_repository.save(booking)
     return redirect(f'/classes/{id}/bookings')
+
+@sessions_blueprint.route('/classes/<id>/deactivate')
+def deactivate(id):
+    session = session_repository.select(id)
+    session_repository.deactivate(session)
+    return render_template('/sessions/deactivate.html', title="Deactivate Class", session=session)
+
+@sessions_blueprint.route('/classes/<id>/reactivate')
+def reactivate(id):
+    session = session_repository.select(id)
+    session_repository.reactivate(session)
+    return render_template('/sessions/reactivate.html', title="Class Reactivated", session=session)

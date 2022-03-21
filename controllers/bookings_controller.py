@@ -18,6 +18,7 @@ def new_booking():
             full_sessions.append(session)
     for session in full_sessions:
         sessions.remove(session)
+    # refactor this!
     return render_template('/bookings/new_booking.html', title="New Booking", sessions=sessions)
 
 @bookings_blueprint.route('/bookings/class/new', methods = ['POST'])

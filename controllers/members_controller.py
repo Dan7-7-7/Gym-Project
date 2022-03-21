@@ -36,6 +36,18 @@ def edit_member(id):
 @members_blueprint.route('/members/<id>', methods=['POST'])
 def update_member(id):
     membership = True if "premium" in request.form else False
-    member = Member(request.form['name'], request.form['age'], membership, id)
+    member = Member(request.form['name'], request.form['age'], membership, True, id)
     member_repository.update(member)
     return redirect(f'/members/{id}')
+
+@members_blueprint.route('/members/<id>/deactivate')
+def deactivate(id):
+    member = member_repository.select(id)
+    member_repository.deactivate(member)
+    return render_template('/members/deactivate_member.html', title="Deactivate Member", member=member)
+
+@members_blueprint.route('/members/<id>/reactivate')
+def reactivate(id):
+    member = member_repository.select(id)
+    member_repository.reactivate(member)
+    return render_template('/members/reactivate_member.html', title="Member Reactivated", member=member)

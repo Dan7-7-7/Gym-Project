@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+
+<p>{{member.name}} has been deactivated.</p>
+<br>
+<a href="/members/{{member.id}}/reactivate">Undo</a>
+
+{% endblock %}
