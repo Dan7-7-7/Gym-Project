@@ -88,8 +88,10 @@ def update_booking(id):
 
 # BACK-END TO-DO LIST
 # edit bookings DONE!!!!!
-# re-factor so that you choose class first, then directs to class_booking page NAH
-# can't book twice - members greyed out/absent from list if already booked MAYBE LATER
+# re-factor so that you choose class first, then directs to class_booking page DONE BUT NOT DRY
+# can't book twice - members greyed out/absent from list if already booked DONE!!!
 # can't exceed capacity DONE!!!!!
+# homepage total bookings and classes DONE!!!!
+# classes appear in chronological order (make it datetime?) DONE!!!!
 # premium/ standard membership with benefits for premium
 # deactivated members, who don't show up anymore

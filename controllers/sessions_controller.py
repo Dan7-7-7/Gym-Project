@@ -7,7 +7,10 @@ sessions_blueprint = Blueprint("sessions", __name__)
 
 @sessions_blueprint.route('/classes')
 def show_classes():
+    def session_start_time(session):
+        return session.start_time
     sessions = session_repository.select_all()
+    sessions.sort(key=session_start_time)
     return render_template('/sessions/index.html', title="Classes", sessions=sessions)
 
 @sessions_blueprint.route('/classes/new')
