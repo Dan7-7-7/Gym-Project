@@ -11,14 +11,7 @@ def all_bookings():
 
 @bookings_blueprint.route('/bookings/new')
 def new_booking():
-    sessions = session_repository.select_all()
-    full_sessions = []
-    for session in sessions:
-        if session.capacity - len(session_repository.all_booked_members(session)) == 0:
-            full_sessions.append(session)
-    for session in full_sessions:
-        sessions.remove(session)
-    # refactor this!
+    sessions = session_repository.select_all_available_sessions()
     return render_template('/bookings/new_booking.html', title="New Booking", sessions=sessions)
 
 @bookings_blueprint.route('/bookings/class/new', methods = ['POST'])

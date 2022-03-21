@@ -28,6 +28,16 @@ def select_all():
         sessions.append(session)
     return sessions
 
+def select_all_activated_sessions():
+    sessions = select_all()
+    deactivated_sessions = []
+    for session in sessions:
+        if not session.activated:
+            deactivated_sessions.append(session)
+    for session in deactivated_sessions:
+        sessions.remove(session)
+    return sessions
+
 def update(session):
     sql = "UPDATE sessions SET (name, start_time, duration, capacity, activated) = (%s, %s, %s, %s, %s) WHERE id = %s"
     values = [session.name, session.start_time, session.duration, session.capacity, session.activated, session.id]
@@ -44,7 +54,7 @@ def all_booked_members(session):
     return members
 
 def all_unbooked_members(session):
-    members = member_repository.select_all()
+    members = member_repository.select_all_activated_members()
     booked_members = []
     session_members = all_booked_members(session)
     for session_member in session_members:
@@ -65,8 +75,15 @@ def premium_unbooked_members(session):
         members.remove(member)
     return members
 
-# def select_all_available_sessions():
-
+def select_all_available_sessions():
+    sessions = select_all_activated_sessions()
+    full_sessions = []
+    for session in sessions:
+        if session.capacity - len(all_booked_members(session)) == 0:
+            full_sessions.append(session)
+    for session in full_sessions:
+        sessions.remove(session)
+    return sessions
 
 def deactivate(session):
     session.activated = False

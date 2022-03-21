@@ -27,6 +27,16 @@ def select_all():
         members.append(member)
     return members
 
+def select_all_activated_members():
+    members = select_all()
+    deactivated_members = []
+    for member in members:
+        if not member.activated:
+            deactivated_members.append(member)
+    for member in deactivated_members:
+        members.remove(member)
+    return members
+
 def update(member):
     sql = "UPDATE members SET (name, age, premium, activated) = (%s, %s, %s, %s) WHERE id = %s"
     values = [member.name, member.age, member.premium, member.activated, member.id]

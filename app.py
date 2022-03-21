@@ -13,7 +13,7 @@ app.register_blueprint(sessions_blueprint)
 
 @app.route('/')
 def home():
-    all_sessions = session_repository.select_all()
+    all_sessions = session_repository.select_all_activated_sessions()
     num_classes = len(all_sessions)
     num_members = 0
     for session in all_sessions:
