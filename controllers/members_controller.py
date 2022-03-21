@@ -15,7 +15,8 @@ def new_member():
 
 @members_blueprint.route('/members', methods=['POST'])
 def add_new_member():
-    member = Member(request.form['name'], request.form['age'], request.form['premium'])
+    membership = True if "premium" in request.form else False
+    member = Member(request.form['name'], request.form['age'], membership)
     member_repository.save(member)
     return redirect('/members')
 
