@@ -7,13 +7,7 @@ sessions_blueprint = Blueprint("sessions", __name__)
 
 @sessions_blueprint.route('/classes')
 def show_classes():
-    def session_start_time(session):
-        return session.start_time
     sessions = session_repository.select_all()
-    sessions.sort(key=session_start_time)
-    def activated(session):
-        return session.activated == False
-    sessions.sort(key=activated)
     return render_template('/sessions/index.html', title="Classes", sessions=sessions)
 
 @sessions_blueprint.route('/classes/new')
@@ -57,6 +51,11 @@ def add_session_booking(id):
     booking = Booking(member, session)
     booking_repository.save(booking)
     return redirect(f'/classes/{id}/bookings')
+
+@sessions_blueprint.route('/classes/<id>/deactivate/confirm')
+def confirm(id):
+    session = session_repository.select(id)
+    return render_template('/sessions/confirm_deactivate.html', title="Confirm Deactivation", session=session)
 
 @sessions_blueprint.route('/classes/<id>/deactivate')
 def deactivate(id):

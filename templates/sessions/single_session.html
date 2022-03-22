@@ -7,7 +7,7 @@
 <p><b>Capacity</b>: {{session.capacity}}</b></p>
 <p><a href="/classes/{{session.id}}/edit">Edit Session Details</a></p>
 {% if session.activated == True %}
-    <p><a href="/classes/{{session.id}}/deactivate">Deactivate</a></p>
+    <p><a href="/classes/{{session.id}}/deactivate/confirm">Deactivate</a></p>
 {% else %}
     <p><b>DEACTIVATED</b></p>
     <p><a href="/classes/{{session.id}}/reactivate">Reactivate</a></p>

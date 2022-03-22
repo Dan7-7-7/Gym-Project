@@ -26,6 +26,12 @@ def select_all():
     for row in results:
         session = Session(row['name'], row['start_time'], row['duration'], row['capacity'], row['activated'], row['id'])
         sessions.append(session)
+    def session_start_time(session):
+        return session.start_time
+    sessions.sort(key=session_start_time)
+    def activated(session):
+        return session.activated == False
+    sessions.sort(key=activated)
     return sessions
 
 def select_all_activated_sessions():

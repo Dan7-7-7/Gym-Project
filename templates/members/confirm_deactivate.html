@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+
+<p>Are you sure you want to deactivate {{member.name}}? This will remove all bookings made by this member.</p>
+<br>
+<a href="/members/{{member.id}}/deactivate">Yes, proceed</a>
+<a href="/members/{{member.id}}">Back to Member Details</a>
+
+{% endblock %}

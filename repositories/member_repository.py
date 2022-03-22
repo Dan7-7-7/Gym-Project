@@ -25,6 +25,9 @@ def select_all():
     for row in results:
         member = Member(row['name'], row['age'], row['premium'], row['activated'], row['id'])
         members.append(member)
+    def activated(member):
+        return member.activated == False
+    members.sort(key=activated)
     return members
 
 def select_all_activated_members():

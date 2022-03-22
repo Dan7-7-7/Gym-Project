@@ -8,7 +8,7 @@
 {% endif %}
 <p><a href="/members/{{member.id}}/edit">Edit Member Details</a></p>
 {% if member.activated == True %}
-    <p><a href="/members/{{member.id}}/deactivate">Deactivate</a></p>
+    <p><a href="/members/{{member.id}}/deactivate/confirm">Deactivate</a></p>
 {% else %}
     <p><b>DEACTIVATED</b></p>
     <p><a href="/members/{{member.id}}/reactivate">Reactivate</a></p>

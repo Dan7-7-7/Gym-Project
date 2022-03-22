@@ -7,9 +7,6 @@ members_blueprint = Blueprint("members", __name__)
 @members_blueprint.route('/members')
 def all_members():
     members = member_repository.select_all()
-    def activated(member):
-        return member.activated == False
-    members.sort(key=activated)
     return render_template('/members/index.html', title="Members", members=members)
 
 @members_blueprint.route('/members/new')
@@ -42,6 +39,11 @@ def update_member(id):
     member = Member(request.form['name'], request.form['age'], membership, True, id)
     member_repository.update(member)
     return redirect(f'/members/{id}')
+
+@members_blueprint.route('/members/<id>/deactivate/confirm')
+def confirm(id):
+    member = member_repository.select(id)
+    return render_template('/members/confirm_deactivate.html', title="Confirm Deactivation", member=member)
 
 @members_blueprint.route('/members/<id>/deactivate')
 def deactivate(id):

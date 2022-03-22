@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+
+<p>Are you sure you want to deactivate {{session.name}}? This will remove all class bookings.</p>
+<br>
+<a href="/classes/{{session.id}}/deactivate">Yes, proceed</a>
+<a href="/classes/{{session.id}}">Back to Class Details</a>
+
+{% endblock %}
