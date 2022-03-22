@@ -11,6 +11,9 @@ def show_classes():
         return session.start_time
     sessions = session_repository.select_all()
     sessions.sort(key=session_start_time)
+    def activated(session):
+        return session.activated == False
+    sessions.sort(key=activated)
     return render_template('/sessions/index.html', title="Classes", sessions=sessions)
 
 @sessions_blueprint.route('/classes/new')

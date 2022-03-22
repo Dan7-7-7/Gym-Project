@@ -7,6 +7,9 @@ members_blueprint = Blueprint("members", __name__)
 @members_blueprint.route('/members')
 def all_members():
     members = member_repository.select_all()
+    def activated(member):
+        return member.activated == False
+    members.sort(key=activated)
     return render_template('/members/index.html', title="Members", members=members)
 
 @members_blueprint.route('/members/new')
