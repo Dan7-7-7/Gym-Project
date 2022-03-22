@@ -12,7 +12,8 @@ def all_bookings():
 @bookings_blueprint.route('/bookings/new')
 def new_booking():
     sessions = session_repository.select_all_available_sessions()
-    return render_template('/bookings/new_booking.html', title="New Booking", sessions=sessions)
+    num_sessions = len(sessions)
+    return render_template('/bookings/new_booking.html', title="New Booking", sessions=sessions, num_sessions=num_sessions)
 
 @bookings_blueprint.route('/bookings/class/new', methods = ['POST'])
 def book_member():
@@ -23,7 +24,8 @@ def book_member():
         members = session_repository.premium_unbooked_members(session)
     else:
         members = session_repository.all_unbooked_members(session)
-    return render_template('/bookings/new_class_booking.html', title=f"New Booking for {session}", spaces=spaces, session=session, members=members)
+    num_members = len(members)
+    return render_template('/bookings/new_class_booking.html', title=f"New Booking for {session}", spaces=spaces, session=session, members=members, num_members=num_members)
 
 @bookings_blueprint.route('/bookings/<id>/new')
 def add_booking_to_session(id):
@@ -34,7 +36,8 @@ def add_booking_to_session(id):
         members = session_repository.premium_unbooked_members(session)
     else:
         members = session_repository.all_unbooked_members(session)
-    return render_template('/bookings/new_class_booking.html', title=f"New Booking for {session}", session=session, members=members, spaces=spaces)
+    num_members = len(members)
+    return render_template('/bookings/new_class_booking.html', title=f"New Booking for {session}", session=session, members=members, spaces=spaces, num_members=num_members)
 
 @bookings_blueprint.route('/bookings/<id>')
 def booking_details(id):

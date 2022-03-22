@@ -5,7 +5,11 @@
 <h3>Starts at: {{session.start_time}}</h3>
 <h3>Spaces remaining: {{spaces}}</h3>
 
-{% if spaces != 0%}
+{% if num_members == 0 %}
+
+<p>No Members Available</p>
+
+{% else %}
 
 <form action="/classes/{{session.id}}/bookings" method="POST">
     <label for="member">Member Name:</label>
