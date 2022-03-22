@@ -1,0 +1,55 @@
+main {
+    text-align: center;
+    background-color: #FBFCFF;
+}
+
+footer {
+    text-align: center;
+    background-color: #D0CCD0;
+    /* border-style: solid;
+    border-width: 5px;
+    border-radius: 5px;
+    border-color: #1C6E8C; */
+}
+
+header {
+    background-color: #D0CCD0;
+    /* border-style: solid;
+    border-width: 5px;
+    border-radius: 5px;
+    border-color: #1C6E8C; */
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.brand_names {
+    text-align: left;
+}
+
+.genie {
+    color: #1C6E8C;
+}
+
+.smaller {
+    font-size: large;
+}
+
+.nav_bar {
+    display: flex;
+    justify-content: space-around;
+    gap: 5px;
+}
+
+ul {
+    list-style: none;
+}
+
+ul > li {
+    display: inline;
+    margin: 10px;
+    font-size: 20px;
+}
