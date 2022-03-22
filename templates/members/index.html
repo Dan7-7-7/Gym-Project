@@ -2,16 +2,18 @@
 {% block content %}
 
 
-<h4><a href="/members/new">New Member</a></h4>
+<h2><a href="/members/new">New Member</a></h2>
+<h2>Current Members</h2>
 {% for member in members %}
     <div class="box">
-        <p><b>Name</b>: {{member.name}}</b></p>
-        <p><b>Age</b>: {{member.age}}</b></p>
+        <h3><b>{{member.name}}</b></h3>
         {% if member.premium == True %}
             <p><b>Premium Member</b></p>
+        {% else %}
+            <p>Standard Member</p>
         {% endif %}
         {% if member.activated == False %}
-            <p><b>DEACTIVATED</b></p>
+            <p><b>Deactivated</b></p>
         {% endif %}
         <p><a href="/members/{{member.id}}">View/Edit Member Details</a></p>
     </div>

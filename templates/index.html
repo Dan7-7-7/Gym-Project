@@ -1,8 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Welcome to your bookings manager.</h1>
-<h3>You currently have {{num_members}} members booked into {{num_classes}} classes.</h3>
-<h4><a href="/bookings/new">New Booking</a></h5>
+<section class="index-container">
+    <div class="item">
+        <h1>Welcome to your bookings manager.</h1>
+    </div>
+    <div class="item">
+        <h3>You currently have {{booked_members}} booked into {{booked_classes}}.</h3>
+    </div>
+    <div class="item">
+        <p id="new-booking"><a href="/bookings/new">New Booking</a></p>
+    </div>
+</section>
 
 {% endblock %}

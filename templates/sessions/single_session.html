@@ -9,7 +9,7 @@
 {% if session.activated == True %}
     <p><a href="/classes/{{session.id}}/deactivate/confirm">Deactivate</a></p>
 {% else %}
-    <p><b>DEACTIVATED</b></p>
+    <p><b>Deactivated</b></p>
     <p><a href="/classes/{{session.id}}/reactivate">Reactivate</a></p>
 {% endif %}
 {% endblock %}

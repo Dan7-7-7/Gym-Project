@@ -1,19 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h4><a href="/classes/new">New Class</a></h4>
-<h4>Upcoming Classes</h4>
-{% for session in sessions %}
-    <div class="box">
-        <p><b>{{session.name}}</b></p>
-        <p>{{session.start_time}}</p>
-        <p>{{session.duration}} minutes</p>
-        {% if session.activated == False %}
-            <p><b>DEACTIVATED</b></p>
-        {% endif %}
-        <p><a href="/classes/{{session.id}}/bookings">View Bookings</a></p>
-        <p><a href="/classes/{{session.id}}">View/Edit Class Details</a></p>
-    </div>
+<h2><a href="/classes/new">New Class</a></h2>
+
+<h2>Upcoming Classes</h2>
+
+<div class="container"></div>
+    {% for session in sessions %}
+        <div class="list-item">
+            <h3><b>{{session.name}}</b></h3>
+            <p>{{session.start_time}}</p>
+            <p>{{session.duration}} minutes</p>
+            {% if session.activated == False %}
+                <p><b>Deactivated</b></p>
+            {% endif %}
+            <p><a href="/classes/{{session.id}}/bookings">View Bookings</a></p>
+            <p><a href="/classes/{{session.id}}">View/Edit Class Details</a></p>
+        </div>
+
+</div>
+
 {% endfor %}
 
 

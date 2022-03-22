@@ -1,6 +1,7 @@
 main {
     text-align: center;
     background-color: #FBFCFF;
+    min-height: 100vh;
 }
 
 footer {
@@ -32,10 +33,12 @@ header {
 
 .genie {
     color: #1C6E8C;
+    margin: 15px;
 }
 
 .smaller {
     font-size: large;
+    margin: 15px;
 }
 
 .nav_bar {
@@ -52,4 +55,46 @@ ul > li {
     display: inline;
     margin: 10px;
     font-size: 20px;
+    font-weight: bold;
 }
+
+a:link, a:visited {
+    text-decoration: none;
+    color: #1C6E8C;
+}
+
+a:hover, a:active {
+    text-decoration: none;
+    color: #15566e;
+}
+
+#new-booking {
+    font-size: 30px;
+    color: #1C6E8C;
+}
+
+.index-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 70px 0;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.item {
+    margin: 20px;
+}
+
+.list-item {
+    margin: 10px;
+}
+/* button {
+
+} */
