@@ -1,6 +1,7 @@
 from db.run_sql import run_sql
 from models.member import Member
 from models.session import Session
+from repositories import booking_repository
 
 def save(member):
     sql = "INSERT INTO members (name, age, premium, activated) VALUES (%s, %s, %s, %s) RETURNING *"
@@ -58,6 +59,7 @@ def sessions(member):
 def deactivate(member):
     member.activated = False
     update(member)
+    booking_repository.delete_member_bookings(member.id)
 
 def reactivate(member):
     member.activated = True

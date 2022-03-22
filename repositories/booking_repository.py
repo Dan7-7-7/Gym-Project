@@ -1,4 +1,3 @@
-from flask import session
 from db.run_sql import run_sql
 from models.booking import Booking
 from repositories import member_repository, session_repository
@@ -35,4 +34,14 @@ def select_all():
 def update(booking):
     sql = "UPDATE bookings SET (member_id, session_id) = (%s, %s) WHERE id = %s"
     values = [booking.member.id, booking.session.id, booking.id]
+    run_sql(sql, values)
+
+def delete_member_bookings(id):
+    sql = "DELETE FROM bookings WHERE member_id = %s"
+    values = [id]
+    run_sql(sql, values)
+
+def delete_session_bookings(id):
+    sql = "DELETE FROM bookings WHERE session_id = %s"
+    values = [id]
     run_sql(sql, values)
