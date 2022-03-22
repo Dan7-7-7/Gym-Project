@@ -1,20 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>{{session.name}}</h1>
+<section class="page-container-column">
 
-<h2>Current Bookings: {{bookings}}</h2>
+    <h1>{{session.name}}</h1>
 
-<h2>Spaces Remaining: {{spaces}}</h2>
+    <h2>Current Bookings: {{bookings}}</h2>
 
-<h3>Members currently booked into this class:</h3>
+    <h2>Spaces Remaining: {{spaces}}</h2>
 
-{% for member in members %}
-        <p><b>{{member.name}}</b></p>
-{% endfor %}
+    <h3>Members currently booked into this class:</h3>
 
-{% if spaces != 0 and session.activated %}
-    <p><a href="/bookings/{{session.id}}/new">Add new booking for this class</a></p>
-{% endif %}
+    {% for member in members %}
+            <p><b>{{member.name}}</b></p>
+    {% endfor %}
+
+    {% if spaces != 0 and session.activated %}
+        <p><a href="/bookings/{{session.id}}/new">Add new booking for this class</a></p>
+    {% endif %}
+
+</section>
 
 {% endblock %}

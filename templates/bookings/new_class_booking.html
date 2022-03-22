@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-
+<br>
+<section class="page-container-column">
 <h1>New Booking for {{session.name}}</h1>
 <h3>Starts at: {{session.start_time}}</h3>
-<h3>Spaces remaining: {{spaces}}</h3>
+<h3>Spaces remaining: {{spaces}}</h3><br>
 
 {% if num_members == 0 %}
 
@@ -11,7 +12,7 @@
 
 {% else %}
 
-<form action="/classes/{{session.id}}/bookings" method="POST">
+<form class="form-container" action="/classes/{{session.id}}/bookings" method="POST">
     <label for="member">Member Name:</label>
         <select name="member_id" id="member">
             {% for member in members %}
@@ -22,5 +23,5 @@
 </form>
 
 {% endif %}
-
+</section>
 {% endblock %}

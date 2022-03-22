@@ -4,6 +4,11 @@ main {
     min-height: 100vh;
 }
 
+.left {
+    text-align: left;
+    margin-left: 50px;
+}
+
 footer {
     text-align: center;
     background-color: #D0CCD0;
@@ -25,6 +30,7 @@ header {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .brand_names {
@@ -39,6 +45,14 @@ header {
 .smaller {
     font-size: large;
     margin: 15px;
+}
+
+.large {
+    font-size: 35px;
+}
+
+.quite-large {
+    font-size: 25px;
 }
 
 .nav_bar {
@@ -69,8 +83,9 @@ a:hover, a:active {
 }
 
 #new-booking {
-    font-size: 30px;
+    font-size: 40px;
     color: #1C6E8C;
+    font-weight: bolder;
 }
 
 .index-container {
@@ -83,9 +98,26 @@ a:hover, a:active {
 
 .page-container {
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: first baseline;
     align-items: center;
+    flex-wrap: wrap;
+}
+
+.page-container-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: first baseline;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 25px;
+}
+
+.form-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .item {
@@ -94,7 +126,13 @@ a:hover, a:active {
 
 .list-item {
     margin: 10px;
+    width: 20%;
 }
-/* button {
 
-} */
+select {
+    font-size: 20px;
+}
+
+button {
+    font-size: 20px;
+}

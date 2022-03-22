@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-
-<form action="/members" method="POST">
+<br><br><br><br>
+<section class="page-container-column">
+<form class="form-container" action="/members" method="POST">
     <label for="name">Name: </label>
     <input type="text" id="name" name="name">
     <label for="age">Age: </label>
@@ -10,5 +11,5 @@
     <input type="checkbox" id="premium" name="premium">
     <button type="submit">Create New Member</button>
 </form>
-
+</section>
 {% endblock %}

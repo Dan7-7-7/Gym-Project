@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-
-<form action="/bookings/{{booking.id}}" method="POST">
+<br><br><br><br>
+<section class="page-container-column">
+<form class="form-container" action="/bookings/{{booking.id}}" method="POST">
     <label for="session_id">Class Name: </label>
     <select id="session_id" name="session_id">
             <option value="{{booking.session.id}}" selected>{{booking.session.name}}</option>
@@ -22,5 +23,5 @@
     </select>
     <button type="submit">Update</button>
 </form>
-
+</section>
 {% endblock %}

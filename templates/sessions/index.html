@@ -1,11 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h2><a href="/classes/new">New Class</a></h2>
+<h2 class="left">Upcoming Classes</h2>
 
-<h2>Upcoming Classes</h2>
-
-<div class="container"></div>
+<section class="page-container"></div>
     {% for session in sessions %}
         <div class="list-item">
             <h3><b>{{session.name}}</b></h3>
@@ -17,10 +15,9 @@
             <p><a href="/classes/{{session.id}}/bookings">View Bookings</a></p>
             <p><a href="/classes/{{session.id}}">View/Edit Class Details</a></p>
         </div>
+    {% endfor %}
+</section>
 
-</div>
-
-{% endfor %}
-
+<h2 class="left"><a href="/classes/new">New Class</a></h2>
 
 {% endblock %}

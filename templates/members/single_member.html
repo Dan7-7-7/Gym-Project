@@ -1,17 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
 
-<p><b>Name</b>: {{member.name}}</b></p>
-<p><b>Age</b>: {{member.age}}</b></p>
-{% if member.premium == True %}
-    <p><b>Premium Member</b></p>
-{% endif %}
-<p><a href="/members/{{member.id}}/edit">Edit Member Details</a></p>
-{% if member.activated == True %}
-    <p><a href="/members/{{member.id}}/deactivate/confirm">Deactivate</a></p>
-{% else %}
-    <p><b>Deactivated</b></p>
-    <p><a href="/members/{{member.id}}/reactivate">Reactivate</a></p>
-{% endif %}
+<section class="page-container-column">
+
+    <div class="list-item">
+        <p><b>Name</b>: {{member.name}}</b></p>
+    </div>
+    <div class="list-item">
+        <p><b>Age</b>: {{member.age}}</b></p>
+    </div>
+    {% if member.premium == True %}
+        <div class="list-item">
+            <p><b>Premium Member</b></p>
+        </div>
+    {% endif %}
+    <div class="list-item">
+        <p><a href="/members/{{member.id}}/edit">Edit Member Details</a></p>
+    </div>
+    {% if member.activated == True %}
+        <div class="list-item">
+            <p><a href="/members/{{member.id}}/deactivate/confirm">Deactivate</a></p>
+        </div>
+    {% else %}
+        <div class="list-item">
+            <p><b>Deactivated</b></p></div>
+        </div>
+    <div class="list-item">
+        <p><a href="/members/{{member.id}}/reactivate">Reactivate</a></p>
+    </div>
+    {% endif %}
+
+</section>
 
 {% endblock %}

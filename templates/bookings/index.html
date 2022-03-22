@@ -1,16 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h4><a href="/bookings/new">New Booking</a></h4>
+<h2 class="left">Recent Bookings</h2>
 
-<h4>Recent Bookings</h4>
-
+<section class="page-container">
     {% for booking in bookings %}
-        <div class="box">
+        <div class="list-item">
             <p><b>Class</b>: {{booking.session.name}}</b></p>
             <p><b>Member Name</b>: {{booking.member.name}}</b></p>
             <p><a href="/bookings/{{booking.id}}">View/Edit Booking Details</a></p>
         </div>
     {% endfor %}
+</section>
+
+<h2 class="left"><a href="/bookings/new">New Booking</a></h2>
 
 {% endblock %}

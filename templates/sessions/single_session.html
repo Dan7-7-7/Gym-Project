@@ -1,15 +1,34 @@
 {% extends "base.html" %}
 {% block content %}
 
-<p><b>Name</b>: {{session.name}}</b></p>
-<p><b>Start Time</b>: {{session.start_time}}</b></p>
-<p><b>Duration</b>: {{session.duration}} minutes</b></p>
-<p><b>Capacity</b>: {{session.capacity}}</b></p>
-<p><a href="/classes/{{session.id}}/edit">Edit Session Details</a></p>
-{% if session.activated == True %}
-    <p><a href="/classes/{{session.id}}/deactivate/confirm">Deactivate</a></p>
-{% else %}
-    <p><b>Deactivated</b></p>
-    <p><a href="/classes/{{session.id}}/reactivate">Reactivate</a></p>
-{% endif %}
+<section class="page-container-column">
+    <div class="list-item">
+    <p><b>Name</b>: {{session.name}}</b></p>
+    </div>
+    <div class="list-item">
+    <p><b>Start Time</b>: {{session.start_time}}</b></p>
+</div>
+    <div class="list-item">
+    <p><b>Duration</b>: {{session.duration}} minutes</b></p>
+</div>
+    <div class="list-item">
+    <p><b>Capacity</b>: {{session.capacity}}</b></p>
+</div>
+    <div class="list-item">
+    <p><a href="/classes/{{session.id}}/edit">Edit Session Details</a></p>
+</div>
+    {% if session.activated == True %}
+        <div class="list-item">
+        <p><a href="/classes/{{session.id}}/deactivate/confirm">Deactivate</a></p>
+    </div>
+    {% else %}
+        <div class="list-item">
+        <p><b>Deactivated</b></p>
+    </div>
+        <div class="list-item">
+        <p><a href="/classes/{{session.id}}/reactivate">Reactivate</a></p>
+    </div>
+    {% endif %}
+
+</section>
 {% endblock %}
