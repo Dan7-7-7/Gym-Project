@@ -61,13 +61,13 @@ def all_booked_members(session):
 
 def all_unbooked_members(session):
     members = member_repository.select_all_activated_members()
-    booked_members = []
-    session_members = all_booked_members(session)
-    for session_member in session_members:
+    members_to_remove = []
+    booked_members = all_booked_members(session)
+    for booked_member in booked_members:
         for member in members:
-            if member.id == session_member.id:
-                booked_members.append(member)
-    for member in booked_members:
+            if member.id == booked_member.id:
+                members_to_remove.append(member)
+    for member in members_to_remove:
         members.remove(member)
     return members
 
