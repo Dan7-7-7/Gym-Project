@@ -20,7 +20,7 @@ def book_member():
     session = session_repository.select(request.form['session_id'])
     num_bookings = len(session_repository.all_booked_members(session))
     spaces = session.capacity - num_bookings
-    if session.start_time > 1700 and session.start_time < 1900:
+    if 1900 > session.start_time > 1700:
         members = session_repository.premium_unbooked_members(session)
     else:
         members = session_repository.all_unbooked_members(session)
@@ -32,7 +32,7 @@ def add_booking_to_session(id):
     session = session_repository.select(id)
     num_bookings = len(session_repository.all_booked_members(session))
     spaces = session.capacity - num_bookings
-    if session.start_time > 1700 and session.start_time < 1900:
+    if 1900 > session.start_time > 1700:
         members = session_repository.premium_unbooked_members(session)
     else:
         members = session_repository.all_unbooked_members(session)
@@ -47,16 +47,21 @@ def booking_details(id):
 @bookings_blueprint.route('/bookings/<id>/edit')
 def edit_booking(id):
     booking = booking_repository.select(id)
-    sessions = session_repository.select_all()
-    members = member_repository.select_all()
-    return render_template('/bookings/edit_booking.html', title="Edit Booking", booking=booking, sessions=sessions, members=members)
+    member = member_repository.select(booking.member.id)
+    session = session_repository.select(booking.session.id)
+    sessions = session_repository.select_all_available_sessions()
+    if not member.premium:
+        sessions = session_repository.select_all_available_sessions_standard_only()
+    sessions = session_repository.filter_sessions_by_member_booking(member, sessions)
+    return render_template('/bookings/edit_booking.html', title="Edit Booking", booking=booking, sessions=sessions, session=session, member=member)
 
 @bookings_blueprint.route('/bookings/<id>', methods = ['POST'])
 def update_booking(id):
-    member = member_repository.select(request.form['member_id'])
+    booking = booking_repository.select(id)
+    member = member_repository.select(booking.member.id)
     session = session_repository.select(request.form['session_id'])
-    booking = Booking(member, session, id)
-    booking_repository.update(booking)
+    updated_booking = Booking(member, session, id)
+    booking_repository.update(updated_booking)
     return redirect(f'/bookings/{id}')
 
 

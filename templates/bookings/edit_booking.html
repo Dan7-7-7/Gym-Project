@@ -1,27 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
 <br><br><br><br>
+<h1>Edit Booking for {{member.name}}</h1>
 <section class="page-container-column">
 <form class="form-container" action="/bookings/{{booking.id}}" method="POST">
     <label for="session_id">Class Name: </label>
     <select id="session_id" name="session_id">
-            <option value="{{booking.session.id}}" selected>{{booking.session.name}}</option>
+            <option value="{{session.id}}" selected>{{session.name}}</option>
         {% for session in sessions %}
-            {% if session.id != booking.session.id %}
                 <option value="{{session.id}}">{{session.name}}</option>
-            {% endif %}
         {% endfor %}
     </select>
-    <label for="member_id">Member Name: </label>
-    <select id="member_id" name="member_id">
-            <option value="{{booking.member.id}}" selected>{{booking.member.name}}</option>
-        {% for member in members %}
-            {% if member.id != booking.member.id %}
-                <option value="{{member.id}}">{{member.name}}</option>
-            {% endif %}
-        {% endfor %}
-    </select>
-    <button type="submit">Update</button>
+    <button type="submit">Next</button>
 </form>
 </section>
 {% endblock %}

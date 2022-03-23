@@ -91,6 +91,23 @@ def select_all_available_sessions():
         sessions.remove(session)
     return sessions
 
+def select_all_available_sessions_standard_only():
+    sessions = select_all_available_sessions()
+    premium_sessions = [session for session in sessions if 1900 > session.start_time > 1700]
+    for session in premium_sessions:
+        sessions.remove(session)
+    return sessions
+
+def filter_sessions_by_member_booking(member, sessions):
+    booked_sessions = member_repository.sessions(member)
+    sessions_to_remove = []
+    for booked_session in booked_sessions:
+        for session in sessions:
+            if session.id == booked_session.id:
+                sessions_to_remove.append(session)
+    unbooked_sessions = [session for session in sessions if not session in sessions_to_remove]
+    return unbooked_sessions
+
 def deactivate(session):
     session.activated = False
     update(session)
